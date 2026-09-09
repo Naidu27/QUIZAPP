@@ -9,15 +9,24 @@ const getCategories = (req, res) => {
 
 const getQuestions = (req, res) => {
   const categoryId = req.query.category;
-  if (!categoryId) return res.status(400).json({ msg: "Category ID is required" });
+
+  if (!categoryId) {
+    return res.status(400).json({ msg: "Category ID is required" });
+  }
 
   QuizModel.getQuestionsByCategory(categoryId, (err, results) => {
-    if (err) return res.status(500).json({ msg: "Error fetching questions" });
+    if (err) {
+      console.error("Error fetching questions:", err);
+      return res.status(500).json({ msg: "Error fetching questions" });
+    }
 
-    const questions = results.map(q => ({
+    const questions = results.map((q) => ({
       id: q.id,
       question: q.question,
-      options: JSON.parse(q.options),
+      options:
+        typeof q.options === "string"
+          ? JSON.parse(q.options)
+          : q.options,
       answer: q.answer
     }));
 
@@ -29,23 +38,43 @@ const submitScore = (req, res) => {
   const userId = req.user.id;
   const { categoryId, score, timeTaken, totalQuestions } = req.body;
 
-  if (!categoryId || score == null || timeTaken == null || totalQuestions == null) {
+  if (
+    !categoryId ||
+    score == null ||
+    timeTaken == null ||
+    totalQuestions == null
+  ) {
     return res.status(400).json({ msg: "Missing fields in request body" });
   }
 
-  QuizModel.insertScore(userId, categoryId, score, timeTaken, totalQuestions, (err, result) => {
-    if (err) return res.status(500).json({ msg: "Error saving score" });
-    res.json({ msg: "Score submitted successfully" });
-  });
+  QuizModel.insertScore(
+    userId,
+    categoryId,
+    score,
+    timeTaken,
+    totalQuestions,
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ msg: "Error saving score" });
+      }
+
+      res.json({ msg: "Score submitted successfully" });
+    }
+  );
 };
 
 const getLeaderboard = (req, res) => {
   const categoryId = req.params.id;
 
-  if (!categoryId) return res.status(400).json({ msg: "Category ID is required" });
+  if (!categoryId) {
+    return res.status(400).json({ msg: "Category ID is required" });
+  }
 
   QuizModel.getTopScores(categoryId, (err, results) => {
-    if (err) return res.status(500).json({ msg: "Error fetching leaderboard" });
+    if (err) {
+      return res.status(500).json({ msg: "Error fetching leaderboard" });
+    }
+
     res.json(results);
   });
 };
@@ -54,12 +83,13 @@ const getUserScoreHistory = (req, res) => {
   const userId = req.user.id;
 
   QuizModel.getUserScores(userId, (err, results) => {
-    if (err) return res.status(500).json({ msg: "Error fetching user scores" });
+    if (err) {
+      return res.status(500).json({ msg: "Error fetching user scores" });
+    }
 
     res.json(results);
   });
 };
-
 
 module.exports = {
   getCategories,
