@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://myquizzapp-gvcfatbngzeufze0.southindia-01.azurewebsites.net/api",
-  headers: {
+baseURL: "https://myquizzappweb-gvcfatbngzeufze0.southindia-01.azurewebsites.net/api", 
+ headers: {
     "Content-Type": "application/json",
   },
 });
