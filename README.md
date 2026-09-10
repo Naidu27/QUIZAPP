@@ -1,141 +1,134 @@
-# 🎯 QuizNest
+# QuizNest – Online Quiz Application
 
-**QuizNest** is a full-stack quiz application built with React, Node.js, Express, and MySQL. Designed with a sleek modern UI using TailwindCSS and Framer Motion, QuizNest offers a seamless and responsive user experience for testing knowledge across various categories.
+## Project Overview
 
----
+QuizNest is a web-based quiz application that allows users to register, log in, and participate in quizzes.
 
-## 🚀 Features
+The application is hosted on Microsoft Azure using a cloud-based architecture.
 
-- 🔐 User Authentication (JWT-based)
-- 🧠 Quiz Categories with Randomized Questions
-- 📊 Real-time Leaderboard
-- 🗂️ History of Past Attempts
-- ⏱️ Timer-based Quiz System
-- 🌙 Splash and Loading Screens
-- 🧭 Protected Routes and User Profiles
-- ⚙️ RESTful API Architecture
+## Features
 
----
+* User registration and login
+* User authentication using JWT
+* Online quizzes
+* Quiz questions and answers
+* Backend REST APIs
+* SQL database integration
+* Cloud hosting on Microsoft Azure
+* Application monitoring and logging
 
-## 🧩 Tech Stack
+## Technology Stack
 
 ### Frontend
-- [React.js](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/) (for transitions)
-- Context API for State Management
-- Axios for API Communication
+
+* React.js
+* HTML
+* CSS
+* JavaScript
 
 ### Backend
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [MySQL](https://www.mysql.com/)
-- JWT for Authentication
 
----
+* Node.js
+* Express.js
+* REST API
+* JWT Authentication
 
-## 🗂️ Project Structure
+### Database
+
+* Azure SQL Database
+
+### Cloud
+
+* Microsoft Azure
+
+## Azure Services Used
+
+* Azure Static Web Apps – Frontend hosting
+* Azure App Service – Backend hosting
+* Azure SQL Database – Application data
+* Azure Application Insights – Application monitoring
+* App Service Logs – Troubleshooting and application logs
+
+## Architecture
 
 ```text
-QuizNest/
-├── database/
-│   └── quiznest.sql            # SQL schema and seed data
-├── frontend/                   # React frontend
-│   ├── public/
-│   └── src/
-│       ├── api/                # Axios config
-│       ├── auth/               # Auth context and route guards
-│       ├── components/         # Reusable UI components
-│       └── pages/              # App pages (Quiz, Login, History, etc.)
-├── server/                     # Node.js backend
-│   ├── config/                 # DB connection
-│   ├── controllers/            # Logic for auth & quiz
-│   ├── middleware/             # Auth middleware
-│   ├── models/                 # Database models
-│   ├── routes/                 # API routes
-│   └── utils/                  # Token utilities
-````
+User
+  |
+  v
+Azure Static Web Apps
+(React Frontend)
+  |
+  | API Requests
+  v
+Azure App Service
+(Node.js + Express)
+  |
+  | SQL Queries
+  v
+Azure SQL Database
 
----
-
----
-
-## 🛠️ Setup Instructions
-
-### Prerequisites
-
-* Node.js ≥ 18.x
-* MySQL Server
-* Vite (installed globally or via `npm create vite@latest`)
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/QuizNest.git
-cd QuizNest
+Application Monitoring
+        |
+        +--> Application Insights
+        |
+        +--> App Service Logs
 ```
 
-### 2. Setup MySQL Database
+## Security
 
-* Import `database/quiznest.sql` into your MySQL server.
-* Create a `.env` file in `/server` and configure:
+* Database credentials are stored using environment variables.
+* JWT secret is stored using environment variables.
+* Sensitive `.env` files are excluded from Git using `.gitignore`.
+* Secrets are not stored directly in the source code.
 
-```env
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=yourpassword
-DB_NAME=quiznest
-JWT_SECRET=your_jwt_secret
-```
+## Deployment
 
-### 3. Run the Backend
+The application was deployed to Microsoft Azure.
+
+The frontend is hosted using Azure Static Web Apps, while the Node.js backend runs on Azure App Service. The backend communicates with Azure SQL Database to store and retrieve application data.
+
+Application Insights was configured to monitor application requests, failures, and performance.
+
+## Monitoring
+
+Azure Application Insights is used to monitor:
+
+* Application requests
+* Failed requests
+* Application performance
+* API activity
+
+App Service Logs are enabled to help troubleshoot backend application issues.
+
+## Local Development
+
+### Backend
 
 ```bash
 cd server
 npm install
-npm run dev
+npm start
 ```
 
-### 4. Run the Frontend
+### Frontend
 
 ```bash
-cd frontend
+cd client
 npm install
-npm run dev
+npm start
 ```
 
----
+Configure the required environment variables before running the application locally.
 
-## 📡 API Endpoints
+## Learning Outcomes
 
-> These endpoints are located in `routes/` and controlled via `controllers/`.
+Through this project, I gained practical experience with:
 
-### Auth Routes
-
-* `POST /api/auth/register`
-* `POST /api/auth/login`
-* `GET /api/auth/profile`
-
-### Quiz Routes
-
-* `GET /api/quiz/categories`
-* `POST /api/quiz/submit-score`
-* `GET /api/quiz/leaderboard`
-* `GET /api/quiz/history`
-
----
-
-
-## 🙌 Acknowledgements
-
-* OpenAI ChatGPT for brainstorming ideas
-* Tailwind UI for design inspiration
----
-
-## 👨‍💻 Author
-
-Made with 💡 by [Vinith](https://github.com/Vinith1801)
-
-```
+* Azure App Service
+* Azure Static Web Apps
+* Azure SQL Database
+* Application Insights
+* App Service monitoring and logging
+* Environment variables and application security
+* Cloud application hosting
+* Connecting a web application with Azure services
