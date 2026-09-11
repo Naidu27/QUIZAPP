@@ -37,7 +37,7 @@ try {
   formData.append("file", file);
 
   const response = await fetch(
-    "https://myquizzappweb.azurewebsites.net/api/files/upload",
+    "https://myquizzappweb-gvcfatbngzeufze0.southindia-01.azurewebsites.net/api/files/upload",
     {
       method: "POST",
       body: formData,
